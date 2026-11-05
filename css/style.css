@@ -898,10 +898,9 @@ button {
    About Section
    -------------------------------------------------------------------------- */
 .about-grid {
-  display: grid;
-  grid-template-columns: 0.95fr 1.05fr;
-  gap: 4rem;
-  align-items: center;
+  display: block;
+  max-width: 980px;
+  margin: 0 auto;
 }
 
 .about-image-card {
@@ -1015,8 +1014,8 @@ button {
 
 .focus-badges-row {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
   margin-bottom: 2.5rem;
 }
 
@@ -2479,6 +2478,10 @@ button {
   }
   
   .why-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .focus-badges-row {
     grid-template-columns: 1fr;
   }
   

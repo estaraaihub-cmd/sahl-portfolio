@@ -2665,10 +2665,10 @@ button {
 
   .folio-character-stage {
     left: 68%;
-    bottom: 0;
+    bottom: 3cm;
     height: 60%;
     max-height: 480px;
-    opacity: 0.82;
+    opacity: 0.85;
   }
 
   .folio-bottom-row {

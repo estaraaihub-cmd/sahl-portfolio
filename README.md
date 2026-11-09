@@ -108,4 +108,3 @@ This project is completely self-contained with **zero dependencies** or build st
    - Direct email with one-click copy to clipboard.
    - WhatsApp direct chat link.
 
-# sahl-verse

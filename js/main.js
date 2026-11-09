@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileToggle = document.getElementById('mobileToggle');
   const mobileDrawer = document.getElementById('mobileDrawer');
   const drawerClose = document.getElementById('drawerClose');
-  const drawerLinks = document.querySelectorAll('.drawer-link');
+  const drawerLinks = document.querySelectorAll('.drawer-link, .drawer-footer a');
 
   function openDrawer() {
     mobileDrawer.classList.add('open');
@@ -506,58 +506,81 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     13. Interactive Hanging Spider on Web (Scroll Descent & Swing Physics)
+     13. Interactive Hanging Spider on Web (From 2nd Page to Last Page Descent)
      ------------------------------------------------------------------------ */
-  const aboutSection = document.getElementById('about');
+  const spiderContainer = document.getElementById('scrollSpider');
   const spiderThread = document.getElementById('spiderThread');
   const spiderBody = document.getElementById('spiderBody');
+  const aboutSection = document.getElementById('about');
 
-  if (aboutSection && spiderThread && spiderBody) {
-    let targetSpiderY = 0;
-    let currentSpiderY = 0;
+  if (spiderContainer && spiderThread && spiderBody && aboutSection) {
+    let targetSpiderY = 35;
+    let currentSpiderY = 35;
     let swingAngle = 0;
     let isMoving = false;
     let scareOffset = 0;
+    let lastScrollY = window.pageYOffset;
 
     function updateSpider() {
-      const rect = aboutSection.getBoundingClientRect();
+      const scrollY = window.pageYOffset;
       const windowH = window.innerHeight;
-      const sectionH = aboutSection.offsetHeight;
+      const docH = document.documentElement.scrollHeight;
+      const aboutTop = aboutSection.offsetTop;
 
-      // Check if user is scrolled anywhere near or through About section
-      if (rect.top <= windowH && rect.bottom >= 0) {
-        const scrolledIntoSection = windowH - rect.top;
-        const totalScrollable = sectionH + windowH * 0.35;
-        const progress = Math.min(Math.max(scrolledIntoSection / totalScrollable, 0), 1);
+      // Start descending as soon as user approaches Page 2 (About section)
+      const startDescent = Math.max(aboutTop - windowH * 0.4, 50);
+      const endDescent = Math.max(docH - windowH - 20, startDescent + 200);
 
-        const maxTravel = Math.max(sectionH - 180, 180);
-        targetSpiderY = progress * maxTravel + scareOffset;
-      } else if (rect.top > windowH) {
-        targetSpiderY = 0;
+      // Check if user is at or past Page 2 (About)
+      if (scrollY >= startDescent) {
+        spiderContainer.classList.add('is-active');
+        const progress = Math.min(Math.max((scrollY - startDescent) / (endDescent - startDescent), 0), 1);
+
+        // Maximum travel range on viewport: descends from top of viewport to bottom
+        const isMobile = window.innerWidth <= 768;
+        const spiderHeight = isMobile ? 36 : 64;
+        const minY = isMobile ? 25 : 35;
+        const maxY = Math.max(windowH - spiderHeight - (isMobile ? 35 : 55), minY + 60);
+
+        targetSpiderY = minY + progress * (maxY - minY) + scareOffset;
+      } else {
+        // In Hero section (Page 1): Hide spider above viewport
+        spiderContainer.classList.remove('is-active');
+        targetSpiderY = -90;
       }
 
       // Smooth descent physics (Lerp)
       const diff = targetSpiderY - currentSpiderY;
-      currentSpiderY += diff * 0.08;
-      isMoving = Math.abs(diff) > 1.2;
+      currentSpiderY += diff * 0.085;
 
-      // Realistic pendulum swing motion when moving
-      const time = Date.now() / 240;
-      const swingIntensity = isMoving ? 8.5 : 2.5;
+      // Dynamic velocity calculation for swing physics
+      const scrollDelta = scrollY - lastScrollY;
+      lastScrollY = scrollY;
+      isMoving = Math.abs(diff) > 0.8 || Math.abs(scrollDelta) > 0.5;
+
+      // Realistic pendulum swing motion when scrolling
+      const time = Date.now() / 220;
+      const swingIntensity = isMoving ? Math.min(Math.abs(scrollDelta) * 0.25 + 5.5, 12) : 1.8;
       swingAngle = Math.sin(time) * swingIntensity;
 
       // Apply transform to spider and stretch the silk thread
-      spiderBody.style.transform = `translateX(-50%) translateY(${currentSpiderY}px) rotate(${swingAngle.toFixed(2)}deg)`;
-      spiderThread.style.height = `${Math.max(currentSpiderY + 55, 30)}px`;
+      spiderBody.style.transform = `translateX(-50%) translateY(${currentSpiderY.toFixed(1)}px) rotate(${swingAngle.toFixed(2)}deg)`;
+      const threadH = Math.max(currentSpiderY + (window.innerWidth <= 768 ? 16 : 28), 0);
+      spiderThread.style.height = `${threadH.toFixed(1)}px`;
 
       requestAnimationFrame(updateSpider);
     }
 
-    // Playful mouse interactivity on spider
-    spiderBody.style.pointerEvents = 'auto';
-    spiderBody.style.cursor = 'pointer';
+    // Playful mouse interactivity on spider (desktop)
     spiderBody.addEventListener('mouseenter', () => {
-      scareOffset = -40; // jumps up on surprise
+      scareOffset = -50; // jumps up on surprise
+      setTimeout(() => {
+        scareOffset = 0;
+      }, 650);
+    });
+
+    spiderBody.addEventListener('click', () => {
+      scareOffset = -70;
       setTimeout(() => {
         scareOffset = 0;
       }, 700);

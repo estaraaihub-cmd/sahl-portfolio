@@ -476,4 +476,93 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  /* ------------------------------------------------------------------------
+     12. About Section Scroll Reveal (Rising Lines & Zoom-in Animation)
+     ------------------------------------------------------------------------ */
+  const aboutRevealItems = document.querySelectorAll('.about-reveal');
+  if (aboutRevealItems.length > 0) {
+    if ('IntersectionObserver' in window) {
+      const aboutObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+          } else if (entry.boundingClientRect.top > window.innerHeight) {
+            // Re-arm animation when scrolled back up above the section
+            entry.target.classList.remove('is-revealed');
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -30px 0px'
+      });
+
+      aboutRevealItems.forEach((item) => {
+        aboutObserver.observe(item);
+      });
+    } else {
+      aboutRevealItems.forEach((item) => item.classList.add('is-revealed'));
+    }
+  }
+
+  /* ------------------------------------------------------------------------
+     13. Interactive Hanging Spider on Web (Scroll Descent & Swing Physics)
+     ------------------------------------------------------------------------ */
+  const aboutSection = document.getElementById('about');
+  const spiderThread = document.getElementById('spiderThread');
+  const spiderBody = document.getElementById('spiderBody');
+
+  if (aboutSection && spiderThread && spiderBody) {
+    let targetSpiderY = 0;
+    let currentSpiderY = 0;
+    let swingAngle = 0;
+    let isMoving = false;
+    let scareOffset = 0;
+
+    function updateSpider() {
+      const rect = aboutSection.getBoundingClientRect();
+      const windowH = window.innerHeight;
+      const sectionH = aboutSection.offsetHeight;
+
+      // Check if user is scrolled anywhere near or through About section
+      if (rect.top <= windowH && rect.bottom >= 0) {
+        const scrolledIntoSection = windowH - rect.top;
+        const totalScrollable = sectionH + windowH * 0.35;
+        const progress = Math.min(Math.max(scrolledIntoSection / totalScrollable, 0), 1);
+
+        const maxTravel = Math.max(sectionH - 180, 180);
+        targetSpiderY = progress * maxTravel + scareOffset;
+      } else if (rect.top > windowH) {
+        targetSpiderY = 0;
+      }
+
+      // Smooth descent physics (Lerp)
+      const diff = targetSpiderY - currentSpiderY;
+      currentSpiderY += diff * 0.08;
+      isMoving = Math.abs(diff) > 1.2;
+
+      // Realistic pendulum swing motion when moving
+      const time = Date.now() / 240;
+      const swingIntensity = isMoving ? 8.5 : 2.5;
+      swingAngle = Math.sin(time) * swingIntensity;
+
+      // Apply transform to spider and stretch the silk thread
+      spiderBody.style.transform = `translateX(-50%) translateY(${currentSpiderY}px) rotate(${swingAngle.toFixed(2)}deg)`;
+      spiderThread.style.height = `${Math.max(currentSpiderY + 55, 30)}px`;
+
+      requestAnimationFrame(updateSpider);
+    }
+
+    // Playful mouse interactivity on spider
+    spiderBody.style.pointerEvents = 'auto';
+    spiderBody.style.cursor = 'pointer';
+    spiderBody.addEventListener('mouseenter', () => {
+      scareOffset = -40; // jumps up on surprise
+      setTimeout(() => {
+        scareOffset = 0;
+      }, 700);
+    });
+
+    updateSpider();
+  }
 });

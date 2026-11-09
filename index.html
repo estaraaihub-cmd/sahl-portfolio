@@ -143,6 +143,15 @@
 
     <!-- ABOUT SECTION -->
     <section class="section about-section" id="about">
+      <!-- Interactive Spider on Web (Moves down right side as user scrolls) -->
+      <div class="scroll-spider-container" id="scrollSpider" aria-hidden="true">
+        <div class="spider-thread" id="spiderThread"></div>
+        <div class="spider-body" id="spiderBody">
+          <img src="assets/images/spider-web.png" alt="Spider on Web" class="spider-img">
+          <div class="spider-ambient-glow"></div>
+        </div>
+      </div>
+
       <div class="section-container">
         <div class="section-header-tag">
           <span class="tag-line"></span>
@@ -151,42 +160,42 @@
 
         <div class="about-grid">
           <div class="about-text-column">
-            <h2 class="section-title">
+            <h2 class="section-title about-reveal">
               Hi, I'm <span class="highlight-orange">Muhammed Sahl</span>.
             </h2>
-            <h3 class="about-tagline">
+            <h3 class="about-tagline about-reveal">
               Combining artificial intelligence with creative storytelling to craft unforgettable digital visuals.
             </h3>
 
             <div class="about-bio-text">
-              <p>
+              <p class="about-reveal">
                 I'm an aspiring <strong>AI Content Creator</strong> passionate about combining artificial intelligence with creative storytelling to produce engaging videos, video editing, stunning visuals, and impactful advertising content.
               </p>
-              <p>
+              <p class="about-reveal">
                 My focus is on AI-powered video production, image generation, creative concept development, and digital marketing content that helps brands communicate their ideas in fresh and memorable ways.
               </p>
-              <p>
+              <p class="about-reveal">
                 With a background in commerce and business operations, I bring a practical understanding of business needs into my creative work. I'm continuously exploring new AI tools and techniques to turn imaginative concepts into high-quality visual content.
               </p>
             </div>
 
             <!-- Focus Badges -->
             <div class="focus-badges-row">
-              <div class="focus-badge-box">
+              <div class="focus-badge-box about-reveal">
                 <div class="focus-icon"><i data-lucide="clapperboard"></i></div>
                 <div>
                   <h4>AI Video Creation</h4>
                   <p>Cinematic motion, narrative shorts, and seamless scene continuity.</p>
                 </div>
               </div>
-              <div class="focus-badge-box">
+              <div class="focus-badge-box about-reveal">
                 <div class="focus-icon"><i data-lucide="layers"></i></div>
                 <div>
                   <h4>AI Visual Design</h4>
                   <p>Photorealistic concepts, bespoke typography, and campaign imagery.</p>
                 </div>
               </div>
-              <div class="focus-badge-box">
+              <div class="focus-badge-box about-reveal">
                 <div class="focus-icon"><i data-lucide="flame"></i></div>
                 <div>
                   <h4>Brand Content</h4>
@@ -195,7 +204,7 @@
               </div>
             </div>
 
-            <div class="about-action-row">
+            <div class="about-action-row about-reveal">
               <a href="#why-me" class="btn-secondary">
                 <span>Why Work With Me</span>
                 <i data-lucide="arrow-down-right"></i>
@@ -227,7 +236,7 @@
 
         <div class="why-grid">
           <!-- Card 1 -->
-          <div class="why-card glass-panel" data-tilt>
+          <div class="why-card glass-panel">
             <div class="why-card-glow"></div>
             <div class="why-card-icon-wrap">
               <span class="why-card-step">01</span>
@@ -244,7 +253,7 @@
           </div>
 
           <!-- Card 2 -->
-          <div class="why-card glass-panel" data-tilt>
+          <div class="why-card glass-panel">
             <div class="why-card-glow"></div>
             <div class="why-card-icon-wrap">
               <span class="why-card-step">02</span>
@@ -261,7 +270,7 @@
           </div>
 
           <!-- Card 3 -->
-          <div class="why-card glass-panel" data-tilt>
+          <div class="why-card glass-panel">
             <div class="why-card-glow"></div>
             <div class="why-card-icon-wrap">
               <span class="why-card-step">03</span>
@@ -278,7 +287,7 @@
           </div>
 
           <!-- Card 4 -->
-          <div class="why-card glass-panel" data-tilt>
+          <div class="why-card glass-panel">
             <div class="why-card-glow"></div>
             <div class="why-card-icon-wrap">
               <span class="why-card-step">04</span>
@@ -475,18 +484,6 @@
               <span class="deliv-chip">Rapid Deployment</span>
             </div>
           </div>
-        </div>
-
-        <!-- Quick Inquiry Bar -->
-        <div class="services-cta-bar glass-panel">
-          <div class="cta-bar-text">
-            <h4>Have a project in mind?</h4>
-            <p>Let's create content that makes your brand stand out.</p>
-          </div>
-          <a href="#contact" class="btn-primary">
-            <span>Let's discuss your project</span>
-            <i data-lucide="arrow-up-right"></i>
-          </a>
         </div>
       </div>
     </section>

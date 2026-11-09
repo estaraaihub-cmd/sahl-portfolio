@@ -895,103 +895,102 @@ button {
 }
 
 /* --------------------------------------------------------------------------
-   About Section
+   About Section (Page 2 Full Background: Sparkling Embers & High Clarity)
    -------------------------------------------------------------------------- */
+.about-section {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--bg-primary);
+}
+
+.about-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/images/about-sparks-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.92;
+  filter: contrast(1.15) brightness(1.08);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.about-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(180deg, var(--bg-primary) 0%, rgba(8, 8, 10, 0.25) 20%, rgba(8, 8, 10, 0.25) 80%, var(--bg-primary) 100%),
+    radial-gradient(ellipse at center, rgba(8, 8, 10, 0.3) 0%, rgba(8, 8, 10, 0.75) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.about-section .section-container {
+  position: relative;
+  z-index: 3;
+}
+
 .about-grid {
   display: block;
   max-width: 980px;
   margin: 0 auto;
 }
 
-.about-image-card {
-  padding: 1rem;
-  border-radius: var(--radius-xl);
-}
-
-.image-wrapper {
-  position: relative;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  aspect-ratio: 4/5;
-}
-
-.about-image {
-  width: 100%;
+/* Interactive Hanging Spider on Web (Scrolls down right side) */
+.scroll-spider-container {
+  position: absolute;
+  top: 0;
+  right: clamp(15px, 4vw, 70px);
+  width: 80px;
   height: 100%;
-  object-fit: cover;
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
-  filter: contrast(1.06) brightness(1.02);
-  transition: transform var(--transition-slow);
-}
-
-.about-image-card:hover .about-image {
-  transform: scale(1.04);
-}
-
-.image-overlay-glow {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 50%, rgba(8, 8, 10, 0.85) 100%);
   pointer-events: none;
+  z-index: 4;
 }
 
-.floating-badge {
+.spider-thread {
   position: absolute;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: rgba(15, 15, 20, 0.85);
-  backdrop-filter: var(--glass-blur);
-  padding: 0.6rem 1rem;
-  border-radius: var(--radius-pill);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #ffffff;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 50%;
+  width: 1.5px;
+  height: 60px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 140, 50, 0.95) 100%);
+  box-shadow: 0 0 8px rgba(255, 140, 50, 0.7);
+  transform: translateX(-50%);
+  transform-origin: top center;
+  will-change: height;
 }
 
-.floating-badge i {
-  width: 16px;
-  height: 16px;
-  color: var(--accent-amber);
+.spider-body {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  width: 72px;
+  transform: translateX(-50%);
+  transform-origin: top center;
+  will-change: transform;
+  filter: drop-shadow(0 0 16px rgba(255, 94, 30, 0.75)) drop-shadow(0 12px 24px rgba(0, 0, 0, 0.95));
 }
 
-.floating-badge.top-right {
-  top: 1.5rem;
-  right: 1.5rem;
+.spider-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
 }
 
-.floating-badge.bottom-left {
-  bottom: 1.5rem;
-  left: 1.5rem;
-}
-
-.about-quick-pillars {
-  display: flex;
-  gap: 0.65rem;
-  margin-top: 1rem;
-  flex-wrap: wrap;
-}
-
-.pillar-pill {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  background: rgba(255, 255, 255, 0.04);
-  padding: 0.45rem 0.85rem;
-  border-radius: var(--radius-pill);
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  border: 1px solid var(--border-subtle);
-}
-
-.pillar-pill i {
-  width: 14px;
-  height: 14px;
-  color: var(--accent-orange);
+.spider-ambient-glow {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  width: 70px;
+  height: 70px;
+  background: radial-gradient(circle, rgba(255, 94, 30, 0.5) 0%, transparent 70%);
+  filter: blur(16px);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 .about-tagline {
@@ -1012,6 +1011,33 @@ button {
   margin-bottom: 2.25rem;
 }
 
+/* Scroll Reveal with Zoom-in & Rising Lines in About Section */
+.about-reveal {
+  opacity: 0;
+  transform: translateY(32px) scale(0.95);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s ease,
+              box-shadow 0.35s ease,
+              background 0.35s ease;
+  will-change: opacity, transform;
+}
+
+.about-reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.about-text-column .section-title.about-reveal { transition-delay: 0.05s; }
+.about-text-column .about-tagline.about-reveal { transition-delay: 0.15s; }
+.about-bio-text p.about-reveal:nth-child(1) { transition-delay: 0.25s; }
+.about-bio-text p.about-reveal:nth-child(2) { transition-delay: 0.35s; }
+.about-bio-text p.about-reveal:nth-child(3) { transition-delay: 0.45s; }
+.focus-badges-row .focus-badge-box.about-reveal:nth-child(1) { transition-delay: 0.55s; }
+.focus-badges-row .focus-badge-box.about-reveal:nth-child(2) { transition-delay: 0.65s; }
+.focus-badges-row .focus-badge-box.about-reveal:nth-child(3) { transition-delay: 0.75s; }
+.about-action-row.about-reveal { transition-delay: 0.85s; }
+
 .focus-badges-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1022,41 +1048,73 @@ button {
 .focus-badge-box {
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
-  padding: 1rem 1.25rem;
+  gap: 1.15rem;
+  padding: 1.25rem 1.4rem;
   background: rgba(255, 255, 255, 0.03);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   border: 1px solid var(--border-subtle);
-  transition: all var(--transition-fast);
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s ease,
+              border-color 0.35s ease,
+              background-color 0.35s ease;
+  will-change: transform;
 }
 
+/* When cursor touches the 3 boxes, they zoom in with exact Capabilities pattern */
 .focus-badge-box:hover {
-  background: rgba(255, 94, 30, 0.05);
-  border-color: rgba(255, 94, 30, 0.3);
+  transform: translateY(-10px) scale(1.05) !important;
+  z-index: 20;
+  border-color: rgba(255, 130, 60, 0.85);
+  background: rgba(26, 26, 35, 0.94);
+  box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.85),
+              0 0 45px 6px rgba(255, 100, 35, 0.5),
+              0 0 0 1px rgba(255, 140, 50, 0.5) inset;
 }
 
 .focus-icon {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-sm);
   background: rgba(255, 94, 30, 0.12);
+  border: 1px solid rgba(255, 120, 50, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--accent-amber);
   flex-shrink: 0;
+  transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.focus-badge-box:hover .focus-icon {
+  transform: scale(1.14);
+  background: var(--accent-gradient);
+  color: #ffffff;
+  box-shadow: 0 0 25px rgba(255, 100, 35, 0.75);
 }
 
 .focus-badge-box h4 {
-  font-size: 0.98rem;
+  font-size: 1.02rem;
   font-weight: 700;
   color: #ffffff;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.35rem;
+  transition: color 0.25s ease;
+}
+
+.focus-badge-box:hover h4 {
+  color: var(--accent-amber);
 }
 
 .focus-badge-box p {
-  font-size: 0.85rem;
-  color: var(--text-muted);
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  transition: color 0.25s ease;
+}
+
+.focus-badge-box:hover p {
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .about-action-row {
@@ -1114,7 +1172,24 @@ button {
 .why-card {
   padding: 2.5rem;
   border-radius: var(--radius-xl);
-  transition: transform var(--transition-normal), border-color var(--transition-normal);
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s ease,
+              border-color 0.35s ease,
+              background-color 0.35s ease;
+  will-change: transform;
+}
+
+/* When cursor touches the 4 why-cards, they zoom in with exact Capabilities pattern */
+.why-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  z-index: 20;
+  border-color: rgba(255, 130, 60, 0.85);
+  background: rgba(26, 26, 35, 0.94);
+  box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.85),
+              0 0 45px 6px rgba(255, 100, 35, 0.5),
+              0 0 0 1px rgba(255, 140, 50, 0.5) inset;
 }
 
 .why-card-glow {
@@ -1125,6 +1200,14 @@ button {
   height: 140px;
   background: radial-gradient(circle, rgba(255, 94, 30, 0.15) 0%, transparent 70%);
   filter: blur(30px);
+  transition: width 0.35s ease, height 0.35s ease, background 0.35s ease;
+}
+
+.why-card:hover .why-card-glow {
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(255, 110, 40, 0.48) 0%, rgba(255, 140, 0, 0.15) 50%, transparent 75%);
+  filter: blur(35px);
 }
 
 .why-card-icon-wrap {
@@ -1151,6 +1234,14 @@ button {
   align-items: center;
   justify-content: center;
   color: var(--accent-orange);
+  transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.why-card:hover .why-icon-box {
+  transform: scale(1.14);
+  background: var(--accent-gradient);
+  color: #ffffff;
+  box-shadow: 0 0 25px rgba(255, 100, 35, 0.75);
 }
 
 .why-icon-box i {
@@ -1164,6 +1255,11 @@ button {
   letter-spacing: -0.01em;
   margin-bottom: 0.85rem;
   color: #ffffff;
+  transition: color 0.25s ease;
+}
+
+.why-card:hover .why-card-title {
+  color: var(--accent-amber);
 }
 
 .why-card-desc {

@@ -2316,6 +2316,80 @@ button {
   object-fit: cover;
 }
 
+/* Real Video Player in Project Modal */
+.modal-media-wrapper.has-video {
+  background: #000000;
+  border: 1px solid rgba(255, 94, 30, 0.45);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 94, 30, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-real-video {
+  width: 100%;
+  height: 100%;
+  max-height: 520px;
+  object-fit: contain;
+  background: #000000;
+  display: block;
+  border-radius: var(--radius-lg);
+  outline: none;
+  position: relative;
+  z-index: 2;
+}
+
+.video-pill {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(255, 94, 30, 0.25) !important;
+  border-color: rgba(255, 120, 50, 0.6) !important;
+  color: #ffffff !important;
+  font-weight: 700;
+}
+
+.video-indicator-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ff5e1e;
+  box-shadow: 0 0 8px #ff5e1e;
+  animation: pulseVideoDot 1.8s infinite;
+}
+
+@keyframes pulseVideoDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.6; }
+}
+
+.btn-project-video {
+  color: var(--accent-orange) !important;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.play-video-badge {
+  background: var(--accent-gradient) !important;
+  box-shadow: 0 0 25px rgba(255, 94, 30, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+}
+
+.video-ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 90%;
+  background: radial-gradient(circle, rgba(255, 94, 30, 0.15) 0%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 1;
+}
+
 /* Simulated Video Player UI */
 .simulated-player-overlay {
   position: absolute;

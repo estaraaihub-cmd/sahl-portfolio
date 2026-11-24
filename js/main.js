@@ -135,6 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
       category: 'Brand Commercial',
       year: '2026 Commercial Production',
       image: 'assets/images/project-nesto.jpg',
+      video: 'assets/videos/nesto-ad.mov',
       tools: ['Kling AI', 'OmniFlash', 'Photoshop', 'CapCut'],
       description: 'A dynamic AI-driven retail commercial spot built to showcase hyper-engaging consumer products, energetic transitions, and vibrant ambient retail lighting. Created to maximize conversion and attention on Instagram Reels and Meta Ads.',
       conceptBrief: 'The client needed scroll-stopping visual energy without the prohibitive logistical costs of booking multiple supermarket soundstages. By synthesizing photorealistic environments with dynamic camera trajectories in Kling and OmniFlash, we achieved high-fashion commercial energy.',
@@ -199,7 +200,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const data = projectData[projectId];
     if (!data) return;
 
-    modalBody.innerHTML = `
+    const mediaHtml = data.video ? `
+      <div class="modal-media-wrapper has-video">
+        <video id="modalRealVideo" class="modal-real-video" controls autoplay playsinline preload="auto" poster="${data.image}">
+          <source src="${data.video}" type="video/mp4">
+          <source src="${data.video}" type="video/quicktime">
+          Your browser does not support HTML5 video.
+        </video>
+        <div class="video-ambient-glow"></div>
+      </div>
+    ` : `
       <div class="modal-media-wrapper">
         <img src="${data.image}" alt="${data.title}" id="modalPlayerImg">
         <div class="simulated-player-overlay">
@@ -227,6 +237,10 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
         </div>
       </div>
+    `;
+
+    modalBody.innerHTML = `
+      ${mediaHtml}
 
       <div class="modal-details-grid">
         <div class="modal-main-info">
@@ -271,8 +285,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (window.lucide) lucide.createIcons();
 
-    // Simulated Video Player Logic
-    initSimulatedPlayer(data.duration);
+    // Video Player or Simulated Player Logic
+    if (data.video) {
+      const realVideo = document.getElementById('modalRealVideo');
+      if (realVideo) {
+        realVideo.play().catch(() => {
+          // Autoplay handled by browser permission
+        });
+      }
+    } else {
+      initSimulatedPlayer(data.duration);
+    }
 
     // Modal action listeners
     const modalDiscussBtn = document.getElementById('modalDiscussBtn');
@@ -297,6 +320,10 @@ document.addEventListener('DOMContentLoaded', () => {
     projectModal.classList.remove('open');
     document.body.style.overflow = '';
     if (simPlayerInterval) clearInterval(simPlayerInterval);
+    const video = document.getElementById('modalRealVideo');
+    if (video) {
+      video.pause();
+    }
   }
 
   // Simulated Player Interval

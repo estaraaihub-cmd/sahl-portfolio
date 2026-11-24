@@ -131,15 +131,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const projectData = {
     nesto: {
       title: 'NESTO ADS',
-      subtitle: 'Dynamic Commercial Brand Showcase',
+      subtitle: 'Heartfelt Family Commercial Brand Showcase',
       category: 'Brand Commercial',
       year: '2026 Commercial Production',
       image: 'assets/images/project-nesto.jpg',
       video: 'assets/videos/nesto-ad.mov',
-      tools: ['Kling AI', 'OmniFlash', 'Photoshop', 'CapCut'],
-      description: 'A dynamic AI-driven retail commercial spot built to showcase hyper-engaging consumer products, energetic transitions, and vibrant ambient retail lighting. Created to maximize conversion and attention on Instagram Reels and Meta Ads.',
-      conceptBrief: 'The client needed scroll-stopping visual energy without the prohibitive logistical costs of booking multiple supermarket soundstages. By synthesizing photorealistic environments with dynamic camera trajectories in Kling and OmniFlash, we achieved high-fashion commercial energy.',
-      deliverables: ['15s Hook Version (9:16)', '30s Full Campaign Commercial (16:9)', 'High-Res Digital Banner Stills'],
+      tools: ['Seedance 2.5', 'Claude', 'Photoshop', 'CapCut'],
+      description: 'A cinematic, emotionally resonant commercial spot crafted for Nesto, capturing family warmth, cozy home living, and heartfelt brand presence. Designed for high engagement across Meta Ads and digital channels.',
+      conceptBrief: 'The client needed an emotionally engaging family campaign for Nesto. By utilizing Claude for creative narrative development and prompt architecture, alongside Seedance 2.5 for cinematic character rendering, volumetric lighting, and realistic emotional cues, we achieved high-end commercial storytelling.',
+      deliverables: ['15s Social Hook Version (9:16)', '30s Full Campaign Commercial (16:9)', 'High-Res Digital Banner Stills'],
       duration: '0:30'
     },
     abba: {

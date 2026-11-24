@@ -1555,6 +1555,10 @@ button {
   transition: transform var(--transition-slow);
 }
 
+.nesto-featured-card .project-img {
+  object-position: center 38%;
+}
+
 .project-card:hover .project-img {
   transform: scale(1.08);
 }

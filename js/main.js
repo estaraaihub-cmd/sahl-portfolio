@@ -100,7 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const wheelCards = Array.from(document.querySelectorAll('.projects-wheel-track .project-card'));
   const prevBtn = document.getElementById('carouselPrevBtn');
   const nextBtn = document.getElementById('carouselNextBtn');
-  const indicators = document.querySelectorAll('.carousel-indicator');
   const filterBtns = document.querySelectorAll('.filter-btn');
   const totalCards = wheelCards.length || 4;
   let activeIndex = 0; // 0 = Nesto Ads (first in center)
@@ -118,18 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         card.setAttribute('aria-hidden', 'true');
         card.classList.remove('is-active-card');
-      }
-    });
-
-    // Update bottom indicator pills
-    indicators.forEach((indicator) => {
-      const indIdx = parseInt(indicator.getAttribute('data-index'), 10);
-      if (indIdx === activeIndex) {
-        indicator.classList.add('active');
-        indicator.setAttribute('aria-selected', 'true');
-      } else {
-        indicator.classList.remove('active');
-        indicator.setAttribute('aria-selected', 'false');
       }
     });
   }
@@ -164,13 +151,6 @@ document.addEventListener('DOMContentLoaded', () => {
       rotatePrev();
     });
   }
-
-  indicators.forEach((indicator) => {
-    indicator.addEventListener('click', () => {
-      const targetIdx = parseInt(indicator.getAttribute('data-index'), 10);
-      rotateToIndex(targetIdx);
-    });
-  });
 
   // Filter Buttons Behavior
   filterBtns.forEach((btn) => {

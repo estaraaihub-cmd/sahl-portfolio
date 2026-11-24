@@ -1756,59 +1756,6 @@ button {
   box-shadow: 0 25px 55px -10px rgba(0, 0, 0, 0.9), 0 0 25px rgba(255, 94, 30, 0.2);
 }
 
-/* Indicators */
-.carousel-indicators {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  margin-top: 2.25rem;
-  flex-wrap: wrap;
-}
-
-.carousel-indicator {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  padding: 0.55rem 1.25rem;
-  border-radius: var(--radius-pill);
-  background: rgba(18, 12, 10, 0.75);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-muted);
-  font-size: 0.82rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  outline: none;
-}
-
-.carousel-indicator .indicator-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--text-muted);
-  transition: all 0.3s ease;
-}
-
-.carousel-indicator:hover {
-  border-color: rgba(255, 94, 30, 0.45);
-  color: #ffffff;
-  transform: translateY(-2px);
-}
-
-.carousel-indicator.active {
-  background: rgba(255, 94, 30, 0.18);
-  border-color: rgba(255, 94, 30, 0.75);
-  color: #ffffff;
-  box-shadow: 0 0 22px rgba(255, 94, 30, 0.32);
-}
-
-.carousel-indicator.active .indicator-dot {
-  background: var(--accent-orange);
-  box-shadow: 0 0 10px var(--accent-orange);
-}
-
 .project-image-box {
   position: relative;
   aspect-ratio: 16/10;
@@ -1821,7 +1768,10 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform var(--transition-slow);
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  filter: contrast(1.06) brightness(1.02) saturate(1.04);
+  transition: transform var(--transition-slow), filter var(--transition-normal);
 }
 
 .nesto-featured-card .project-img {
@@ -3282,21 +3232,6 @@ button {
 
   .carousel-nav-next {
     right: -4px;
-  }
-
-  .carousel-indicators {
-    gap: 0.45rem;
-    margin-top: 1.5rem;
-  }
-
-  .carousel-indicator {
-    padding: 0.4rem 0.85rem;
-    font-size: 0.75rem;
-    gap: 0.4rem;
-  }
-
-  .carousel-indicator .indicator-name {
-    display: none;
   }
 
   /* Modal Details */

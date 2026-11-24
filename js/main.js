@@ -154,42 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
       conceptBrief: 'Engineered specifically for luxury digital marketing. Utilizing Chat GPT for atmospheric visual storytelling concepts and Kling 4.0 for fluid cinematic motion, liquid amber luminance, and golden reflections, completed with CapCut for sound pacing.',
       deliverables: ['Cinematic Brand Commercial (0:25)', 'Looping Luxury Social Teasers', 'Print-Ready 8K Campaign Stills'],
       duration: '0:25'
-    },
-    dinosaur: {
-      title: 'DINOSAUR STORY',
-      subtitle: 'Photorealistic Prehistoric AI Short Film',
-      category: 'Cinematic Narrative',
-      year: '2026 Film Experiment',
-      image: 'assets/images/project-dinosaur.jpg',
-      tools: ['Seedance', 'Kling AI', 'Claude 3.7', 'CapCut Pro'],
-      description: 'A breathtaking cinematic still-to-motion journey into primeval Earth. Follows a towering Tyrannosaurus Rex navigating dense foggy Jurassic jungles with volumetric lighting and lifelike scale.',
-      conceptBrief: 'Exploring multi-shot visual consistency and emotional camera framing. Claude was used to generate detailed visual worldbuilding prompts and narrative arc, which were rendered across Seedance and Kling with 35mm anamorphic film simulation.',
-      deliverables: ['Full Short Film Sequence', 'Cinematic Sound Design & Pacing', 'Worldbuilding Concept Art Deck'],
-      duration: '1:15'
-    },
-    noah: {
-      title: 'NOAH ARC STORY TELLING',
-      subtitle: 'Epic Mythic Scale Visual Journey',
-      category: 'Epic Visual Story',
-      year: '2026 Narrative Production',
-      image: 'assets/images/project-noah-arc.jpg',
-      tools: ['Gemini', 'Kling AI', 'Flow', 'CapCut'],
-      description: 'A colossal mythic drama depicting the biblical ark braving towering tempestuous oceans beneath stormy heavens illuminated by divine golden god-rays.',
-      conceptBrief: 'A study in monumental scale and emotional lighting. Gemini assisted in historical research and script sequencing, while generative fluid physics and atmospheric volumetric shaders brought the roaring ocean waves and timber fortress to life.',
-      deliverables: ['Episodic Visual Reel Series', 'Narrative Voiceover Integration', 'Cinematic Wallpapers'],
-      duration: '1:45'
-    },
-    fahad: {
-      title: 'FAHAD FASIL HIGGSFIELD',
-      subtitle: 'AI Character Motion & Neo-Noir Portrait Reel',
-      category: 'Experimental Reel',
-      year: '2026 Character Study',
-      image: 'assets/images/project-fahad-fasil.jpg',
-      tools: ['Higgsfield', 'ChatGPT', 'Adobe Photoshop', 'CapCut'],
-      description: 'A high-contrast cinematic tribute capturing actor Fahad Faasil\'s iconic expressive intensity. Utilizes AI motion synthesis, moody neo-noir rim lighting, and intense micro-expressions.',
-      conceptBrief: 'Pioneering AI character acting consistency and nuanced facial emotional control. We used Higgsfield and custom prompt conditioning to reproduce realistic gaze shifts, pupil dilations, and dramatic shadows without the uncanny valley.',
-      deliverables: ['High-Contrast Character Teaser', 'Facial Nuance Study', 'Editorial Poster Series'],
-      duration: '0:20'
     }
   };
 

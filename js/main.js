@@ -148,10 +148,11 @@ document.addEventListener('DOMContentLoaded', () => {
       category: 'Luxury Brand Ad',
       year: '2026 Brand Campaign',
       image: 'assets/images/project-abba-perfume.jpg',
-      tools: ['Nano Banana', 'OmniFlash', 'Adobe Photoshop', 'Flow'],
+      video: 'assets/videos/abba-perfume.mov',
+      tools: ['Kling 4.0', 'Chat GPT', 'CapCut'],
       description: 'A sensual, high-prestige perfume commercial highlighting the tactile beauty of geometric flacon glass, amber liquid luminance, and suspended golden mist particles in zero-gravity motion.',
-      conceptBrief: 'Engineered specifically for luxury digital marketing. The concept focuses on sensory visual cues: refraction, shimmering droplets, and rich dark obsidian reflections, elevating brand prestige and positioning.',
-      deliverables: ['Cinematic Brand Reveal', 'Looping Luxury Social Teasers', 'Print-Ready 8K Campaign Stills'],
+      conceptBrief: 'Engineered specifically for luxury digital marketing. Utilizing Chat GPT for atmospheric visual storytelling concepts and Kling 4.0 for fluid cinematic motion, liquid amber luminance, and golden reflections, completed with CapCut for sound pacing.',
+      deliverables: ['Cinematic Brand Commercial (0:25)', 'Looping Luxury Social Teasers', 'Print-Ready 8K Campaign Stills'],
       duration: '0:25'
     },
     dinosaur: {

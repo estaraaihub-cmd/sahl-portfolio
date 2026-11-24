@@ -1559,6 +1559,10 @@ button {
   object-position: center 38%;
 }
 
+.abba-featured-card .project-img {
+  object-position: center 40%;
+}
+
 .project-card:hover .project-img {
   transform: scale(1.08);
 }

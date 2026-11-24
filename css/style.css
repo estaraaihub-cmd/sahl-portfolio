@@ -881,12 +881,31 @@ button {
 }
 
 /* --------------------------------------------------------------------------
-   About Section (Page 2 Full Background: Sparkling Embers & High Clarity)
+   Global 3D Space Warp Ember Canvas (Active from Page 2 to Footer)
+   -------------------------------------------------------------------------- */
+.global-space-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.global-space-canvas.is-active {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   About Section (Page 2: Transparent with Cosmic Depth)
    -------------------------------------------------------------------------- */
 .about-section {
   position: relative;
   overflow: hidden;
-  background-color: var(--bg-primary);
+  background-color: transparent;
 }
 
 .about-section::before {
@@ -897,19 +916,10 @@ button {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.65;
+  opacity: 0.18;
   filter: contrast(1.15) brightness(1.05);
   pointer-events: none;
   z-index: 1;
-}
-
-.about-space-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 2;
 }
 
 .about-section::after {
@@ -917,8 +927,7 @@ button {
   position: absolute;
   inset: 0;
   background: 
-    linear-gradient(180deg, var(--bg-primary) 0%, rgba(8, 8, 10, 0.2) 20%, rgba(8, 8, 10, 0.2) 80%, var(--bg-primary) 100%),
-    radial-gradient(ellipse at center, rgba(8, 8, 10, 0.25) 0%, rgba(8, 8, 10, 0.7) 100%);
+    linear-gradient(180deg, var(--bg-primary) 0%, rgba(8, 8, 10, 0.15) 20%, rgba(8, 8, 10, 0.15) 80%, transparent 100%);
   pointer-events: none;
   z-index: 1;
 }
@@ -1063,16 +1072,18 @@ button {
   border: 1px solid var(--border-subtle);
   cursor: pointer;
   position: relative;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.35s ease,
-              border-color 0.35s ease,
-              background-color 0.35s ease;
+  transition: transform 0.08s cubic-bezier(0, 0, 0.2, 1),
+              box-shadow 0.1s ease,
+              border-color 0.1s ease,
+              background-color 0.1s ease;
   will-change: transform;
 }
 
-/* When cursor touches the 3 boxes, they zoom in with exact Capabilities pattern */
+/* Instant on-the-spot zoom with zero lag/delay */
 .focus-badge-box:hover {
-  transform: translateY(-10px) scale(1.05) !important;
+  transform: translateY(-8px) scale(1.05) !important;
+  transition: transform 0.08s cubic-bezier(0, 0, 0.2, 1) !important;
+  transition-delay: 0s !important;
   z-index: 20;
   border-color: rgba(255, 130, 60, 0.85);
   background: rgba(26, 26, 35, 0.94);
@@ -1092,11 +1103,13 @@ button {
   justify-content: center;
   color: var(--accent-amber);
   flex-shrink: 0;
-  transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.08s cubic-bezier(0, 0, 0.2, 1), background 0.1s ease, color 0.1s ease, box-shadow 0.1s ease;
 }
 
 .focus-badge-box:hover .focus-icon {
   transform: scale(1.14);
+  transition: transform 0.08s cubic-bezier(0, 0, 0.2, 1) !important;
+  transition-delay: 0s !important;
   background: var(--accent-gradient);
   color: #ffffff;
   box-shadow: 0 0 25px rgba(255, 100, 35, 0.75);
@@ -1132,25 +1145,16 @@ button {
 }
 
 /* --------------------------------------------------------------------------
-   Why Work With Me Section (Page 3 Background: Fluid Amber Wave)
+   Why Work With Me Section & Services (Transparent with Cosmic Depth)
    -------------------------------------------------------------------------- */
 .why-section, .services-section {
   position: relative;
   overflow: hidden;
+  background: transparent;
 }
 
 .why-section::before, .services-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url('../assets/images/fluid-amber-wave-hd.jpg');
-  background-size: cover;
-  background-position: center 35%;
-  opacity: 0.32;
-  filter: contrast(1.15) brightness(0.95);
-  pointer-events: none;
-  z-index: 1;
-  transform: scale(1.02);
+  display: none;
 }
 
 .why-section::after, .services-section::after {
@@ -1158,10 +1162,13 @@ button {
   position: absolute;
   inset: 0;
   background: 
-    linear-gradient(180deg, var(--bg-primary) 0%, rgba(8, 8, 10, 0.45) 25%, rgba(8, 8, 10, 0.45) 75%, var(--bg-primary) 100%),
-    radial-gradient(circle at center, transparent 35%, var(--bg-primary) 92%);
+    linear-gradient(180deg, transparent 0%, rgba(8, 8, 10, 0.25) 25%, rgba(8, 8, 10, 0.25) 75%, transparent 100%);
   pointer-events: none;
   z-index: 1;
+}
+
+.projects-section, .tools-section, .pipeline-section, .contact-section, .footer {
+  background-color: transparent !important;
 }
 
 .why-section .section-container,
@@ -3061,6 +3068,8 @@ button {
 
   .focus-badge-box:hover {
     transform: translateY(-4px) scale(1.02) !important;
+    transition: transform 0.08s cubic-bezier(0, 0, 0.2, 1) !important;
+    transition-delay: 0s !important;
   }
 
   /* Why Section */

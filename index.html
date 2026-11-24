@@ -510,153 +510,197 @@
           <button class="filter-btn" data-filter="product">Product Ads</button>
         </div>
 
-        <!-- Projects Grid -->
-        <div class="projects-grid" id="projectsGrid">
+        <!-- 3D Rotating Wheel Carousel Showcase -->
+        <div class="projects-carousel-wrapper" id="projectsCarouselWrapper">
           
-          <!-- Project 1: NESTO ADS -->
-          <div class="project-card glass-panel nesto-featured-card" data-category="brand" data-project-id="nesto">
-            <div class="project-image-box">
-              <img src="assets/images/project-nesto.jpg" alt="Nesto Ads AI Commercial" class="project-img">
-              <div class="project-overlay">
-                <span class="play-badge play-video-badge">
-                  <i data-lucide="play"></i>
-                  <span>Watch Commercial Video</span>
-                </span>
+          <!-- Previous Arrow Button -->
+          <button class="carousel-nav-btn carousel-nav-prev" id="carouselPrevBtn" aria-label="Previous Project" title="Previous Project">
+            <i data-lucide="chevron-left"></i>
+          </button>
+
+          <!-- 3D Carousel Stage -->
+          <div class="projects-carousel-stage" id="projectsCarouselStage">
+            <!-- Turntable floor glow & rotating dashed orbit ring -->
+            <div class="projects-wheel-glow"></div>
+            <div class="projects-wheel-ring"></div>
+
+            <div class="projects-wheel-track" id="projectsWheelTrack">
+              
+              <!-- Project 1: NESTO ADS (Active Center by Default) -->
+              <div class="project-card glass-panel nesto-featured-card" data-category="brand" data-project-id="nesto" data-card-index="0" data-wheel-pos="0">
+                <div class="project-image-box">
+                  <img src="assets/images/project-nesto.jpg" alt="Nesto Ads AI Commercial" class="project-img">
+                  <div class="project-overlay">
+                    <span class="play-badge play-video-badge">
+                      <i data-lucide="play"></i>
+                      <span>Watch Commercial Video</span>
+                    </span>
+                  </div>
+                  <div class="project-tag-pill video-pill">
+                    <span class="video-indicator-dot"></span>
+                    <span>Video Commercial</span>
+                  </div>
+                </div>
+                <div class="project-info">
+                  <div class="project-header">
+                    <h3 class="project-name">NESTO ADS</h3>
+                    <span class="project-year">Commercial • 0:30</span>
+                  </div>
+                  <p class="project-summary">
+                    Heartwarming, cinematic AI commercial campaign crafted for Nesto, capturing family warmth, cozy home atmosphere, and emotional brand storytelling.
+                  </p>
+                  <div class="project-tools-row">
+                    <span class="tool-tag">Seedance 2.5</span>
+                    <span class="tool-tag">Claude</span>
+                    <span class="tool-tag">CapCut</span>
+                  </div>
+                  <button class="btn-project-view btn-project-video">
+                    <i data-lucide="film"></i>
+                    <span>Watch Video &amp; Project Breakdown</span>
+                    <i data-lucide="arrow-right"></i>
+                  </button>
+                </div>
               </div>
-              <div class="project-tag-pill video-pill">
-                <span class="video-indicator-dot"></span>
-                <span>Video Commercial</span>
+
+              <!-- Project 2: ABBA PERFUME -->
+              <div class="project-card glass-panel abba-featured-card" data-category="brand" data-project-id="abba" data-card-index="1" data-wheel-pos="1">
+                <div class="project-image-box">
+                  <img src="assets/images/project-abba-perfume.jpg" alt="Abba Perfume Luxury Commercial" class="project-img">
+                  <div class="project-overlay">
+                    <span class="play-badge play-video-badge">
+                      <i data-lucide="play"></i>
+                      <span>Watch Commercial Video</span>
+                    </span>
+                  </div>
+                  <div class="project-tag-pill video-pill">
+                    <span class="video-indicator-dot"></span>
+                    <span>Video Commercial</span>
+                  </div>
+                </div>
+                <div class="project-info">
+                  <div class="project-header">
+                    <h3 class="project-name">ABBA PERFUME</h3>
+                    <span class="project-year">Commercial • 0:25</span>
+                  </div>
+                  <p class="project-summary">
+                    Sensorial luxury fragrance commercial featuring floating amber mist, liquid gold lighting, and photorealistic glass refraction reflecting prestige perfume aesthetics.
+                  </p>
+                  <div class="project-tools-row">
+                    <span class="tool-tag">Kling 4.0</span>
+                    <span class="tool-tag">Chat GPT</span>
+                    <span class="tool-tag">CapCut</span>
+                  </div>
+                  <button class="btn-project-view btn-project-video">
+                    <i data-lucide="film"></i>
+                    <span>Watch Video &amp; Project Breakdown</span>
+                    <i data-lucide="arrow-right"></i>
+                  </button>
+                </div>
               </div>
-            </div>
-            <div class="project-info">
-              <div class="project-header">
-                <h3 class="project-name">NESTO ADS</h3>
-                <span class="project-year">Commercial • 0:30</span>
+
+              <!-- Project 3: AL KARAK -->
+              <div class="project-card glass-panel karak-featured-card" data-category="brand" data-project-id="karak" data-card-index="2" data-wheel-pos="2">
+                <div class="project-image-box">
+                  <img src="assets/images/project-al-karak.jpg" alt="Al Karak Winter Commercial" class="project-img">
+                  <div class="project-overlay">
+                    <span class="play-badge play-video-badge">
+                      <i data-lucide="play"></i>
+                      <span>Watch Commercial Video</span>
+                    </span>
+                  </div>
+                  <div class="project-tag-pill video-pill">
+                    <span class="video-indicator-dot"></span>
+                    <span>Video Commercial</span>
+                  </div>
+                </div>
+                <div class="project-info">
+                  <div class="project-header">
+                    <h3 class="project-name">AL KARAK</h3>
+                    <span class="project-year">Winter Ad • Commercial</span>
+                  </div>
+                  <p class="project-summary">
+                    Cozy, atmospheric winter season commercial capturing warm desert camp gatherings, glowing lantern embers, steaming authentic Karak tea, and seasonal brand storytelling.
+                  </p>
+                  <div class="project-tools-row">
+                    <span class="tool-tag">Seedance 2.5</span>
+                    <span class="tool-tag">Claude</span>
+                    <span class="tool-tag">CapCut</span>
+                  </div>
+                  <button class="btn-project-view btn-project-video">
+                    <i data-lucide="film"></i>
+                    <span>Watch Video &amp; Project Breakdown</span>
+                    <i data-lucide="arrow-right"></i>
+                  </button>
+                </div>
               </div>
-              <p class="project-summary">
-                Heartwarming, cinematic AI commercial campaign crafted for Nesto, capturing family warmth, cozy home atmosphere, and emotional brand storytelling.
-              </p>
-              <div class="project-tools-row">
-                <span class="tool-tag">Seedance 2.5</span>
-                <span class="tool-tag">Claude</span>
-                <span class="tool-tag">CapCut</span>
+
+              <!-- Project 4: DELIZIA MILMA -->
+              <div class="project-card glass-panel milma-featured-card" data-category="product brand" data-project-id="milma" data-card-index="3" data-wheel-pos="3">
+                <div class="project-image-box">
+                  <img src="assets/images/project-delizia-milma.jpg" alt="Delizia Milma Product Ad" class="project-img">
+                  <div class="project-overlay">
+                    <span class="play-badge play-video-badge">
+                      <i data-lucide="play"></i>
+                      <span>Watch Product Video</span>
+                    </span>
+                  </div>
+                  <div class="project-tag-pill video-pill">
+                    <span class="video-indicator-dot"></span>
+                    <span>Product Commercial</span>
+                  </div>
+                </div>
+                <div class="project-info">
+                  <div class="project-header">
+                    <h3 class="project-name">DELIZIA MILMA</h3>
+                    <span class="project-year">Product Ad • Commercial</span>
+                  </div>
+                  <p class="project-summary">
+                    Sensorial, mouthwatering product commercial for Milma Delizia Almonds &amp; Orange chocolate, featuring rich cocoa texture, zesty citrus freshness, and cinematic food motion.
+                  </p>
+                  <div class="project-tools-row">
+                    <span class="tool-tag">Flow</span>
+                    <span class="tool-tag">Claude</span>
+                    <span class="tool-tag">CapCut</span>
+                  </div>
+                  <button class="btn-project-view btn-project-video">
+                    <i data-lucide="film"></i>
+                    <span>Watch Video &amp; Project Breakdown</span>
+                    <i data-lucide="arrow-right"></i>
+                  </button>
+                </div>
               </div>
-              <button class="btn-project-view btn-project-video">
-                <i data-lucide="film"></i>
-                <span>Watch Video &amp; Project Breakdown</span>
-                <i data-lucide="arrow-right"></i>
-              </button>
+
             </div>
           </div>
 
-          <!-- Project 2: ABBA PERFUME -->
-          <div class="project-card glass-panel abba-featured-card" data-category="brand" data-project-id="abba">
-            <div class="project-image-box">
-              <img src="assets/images/project-abba-perfume.jpg" alt="Abba Perfume Luxury Commercial" class="project-img">
-              <div class="project-overlay">
-                <span class="play-badge play-video-badge">
-                  <i data-lucide="play"></i>
-                  <span>Watch Commercial Video</span>
-                </span>
-              </div>
-              <div class="project-tag-pill video-pill">
-                <span class="video-indicator-dot"></span>
-                <span>Video Commercial</span>
-              </div>
-            </div>
-            <div class="project-info">
-              <div class="project-header">
-                <h3 class="project-name">ABBA PERFUME</h3>
-                <span class="project-year">Commercial • 0:25</span>
-              </div>
-              <p class="project-summary">
-                Sensorial luxury fragrance commercial featuring floating amber mist, liquid gold lighting, and photorealistic glass refraction reflecting prestige perfume aesthetics.
-              </p>
-              <div class="project-tools-row">
-                <span class="tool-tag">Kling 4.0</span>
-                <span class="tool-tag">Chat GPT</span>
-                <span class="tool-tag">CapCut</span>
-              </div>
-              <button class="btn-project-view btn-project-video">
-                <i data-lucide="film"></i>
-                <span>Watch Video &amp; Project Breakdown</span>
-                <i data-lucide="arrow-right"></i>
-              </button>
-            </div>
-          </div>
+          <!-- Next Arrow Button -->
+          <button class="carousel-nav-btn carousel-nav-next" id="carouselNextBtn" aria-label="Next Project" title="Next Project">
+            <i data-lucide="chevron-right"></i>
+          </button>
+        </div>
 
-          <!-- Project 3: AL KARAK -->
-          <div class="project-card glass-panel karak-featured-card" data-category="brand" data-project-id="karak">
-            <div class="project-image-box">
-              <img src="assets/images/project-al-karak.jpg" alt="Al Karak Winter Commercial" class="project-img">
-              <div class="project-overlay">
-                <span class="play-badge play-video-badge">
-                  <i data-lucide="play"></i>
-                  <span>Watch Commercial Video</span>
-                </span>
-              </div>
-              <div class="project-tag-pill video-pill">
-                <span class="video-indicator-dot"></span>
-                <span>Video Commercial</span>
-              </div>
-            </div>
-            <div class="project-info">
-              <div class="project-header">
-                <h3 class="project-name">AL KARAK</h3>
-                <span class="project-year">Winter Ad • Commercial</span>
-              </div>
-              <p class="project-summary">
-                Cozy, atmospheric winter season commercial capturing warm desert camp gatherings, glowing lantern embers, steaming authentic Karak tea, and seasonal brand storytelling.
-              </p>
-              <div class="project-tools-row">
-                <span class="tool-tag">Seedance 2.5</span>
-                <span class="tool-tag">Claude</span>
-                <span class="tool-tag">CapCut</span>
-              </div>
-              <button class="btn-project-view btn-project-video">
-                <i data-lucide="film"></i>
-                <span>Watch Video &amp; Project Breakdown</span>
-                <i data-lucide="arrow-right"></i>
-              </button>
-            </div>
-          </div>
-
-          <!-- Project 4: DELIZIA MILMA -->
-          <div class="project-card glass-panel milma-featured-card" data-category="product brand" data-project-id="milma">
-            <div class="project-image-box">
-              <img src="assets/images/project-delizia-milma.jpg" alt="Delizia Milma Product Ad" class="project-img">
-              <div class="project-overlay">
-                <span class="play-badge play-video-badge">
-                  <i data-lucide="play"></i>
-                  <span>Watch Product Video</span>
-                </span>
-              </div>
-              <div class="project-tag-pill video-pill">
-                <span class="video-indicator-dot"></span>
-                <span>Product Commercial</span>
-              </div>
-            </div>
-            <div class="project-info">
-              <div class="project-header">
-                <h3 class="project-name">DELIZIA MILMA</h3>
-                <span class="project-year">Product Ad • Commercial</span>
-              </div>
-              <p class="project-summary">
-                Sensorial, mouthwatering product commercial for Milma Delizia Almonds &amp; Orange chocolate, featuring rich cocoa texture, zesty citrus freshness, and cinematic food motion.
-              </p>
-              <div class="project-tools-row">
-                <span class="tool-tag">Flow</span>
-                <span class="tool-tag">Claude</span>
-                <span class="tool-tag">CapCut</span>
-              </div>
-              <button class="btn-project-view btn-project-video">
-                <i data-lucide="film"></i>
-                <span>Watch Video &amp; Project Breakdown</span>
-                <i data-lucide="arrow-right"></i>
-              </button>
-            </div>
-          </div>
-
+        <!-- 3D Wheel Pagination / Project Selector Indicators -->
+        <div class="carousel-indicators" id="carouselIndicators">
+          <button class="carousel-indicator active" data-index="0" aria-label="Select Nesto Ads">
+            <span class="indicator-dot"></span>
+            <span class="indicator-num">01</span>
+            <span class="indicator-name">Nesto Ads</span>
+          </button>
+          <button class="carousel-indicator" data-index="1" aria-label="Select Abba Perfume">
+            <span class="indicator-dot"></span>
+            <span class="indicator-num">02</span>
+            <span class="indicator-name">Abba Perfume</span>
+          </button>
+          <button class="carousel-indicator" data-index="2" aria-label="Select Al Karak">
+            <span class="indicator-dot"></span>
+            <span class="indicator-num">03</span>
+            <span class="indicator-name">Al Karak</span>
+          </button>
+          <button class="carousel-indicator" data-index="3" aria-label="Select Delizia Milma">
+            <span class="indicator-dot"></span>
+            <span class="indicator-num">04</span>
+            <span class="indicator-name">Delizia Milma</span>
+          </button>
         </div>
       </div>
     </section>

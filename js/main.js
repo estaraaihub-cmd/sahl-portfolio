@@ -94,36 +94,146 @@ document.addEventListener('DOMContentLoaded', () => {
   drawerLinks.forEach((link) => link.addEventListener('click', closeDrawer));
 
   /* ------------------------------------------------------------------------
-     4. Projects Filtering
+     4. 3D Rotating Wheel Carousel for Projects
      ------------------------------------------------------------------------ */
+  const carouselStage = document.getElementById('projectsCarouselStage');
+  const wheelCards = Array.from(document.querySelectorAll('.projects-wheel-track .project-card'));
+  const prevBtn = document.getElementById('carouselPrevBtn');
+  const nextBtn = document.getElementById('carouselNextBtn');
+  const indicators = document.querySelectorAll('.carousel-indicator');
   const filterBtns = document.querySelectorAll('.filter-btn');
-  const projectCards = document.querySelectorAll('.project-card');
+  const totalCards = wheelCards.length || 4;
+  let activeIndex = 0; // 0 = Nesto Ads (first in center)
 
+  function updateWheelCarousel() {
+    wheelCards.forEach((card, idx) => {
+      let rel = (idx - activeIndex) % totalCards;
+      if (rel < 0) rel += totalCards;
+      card.setAttribute('data-wheel-pos', rel);
+
+      // Accessibility & active state
+      if (rel === 0) {
+        card.setAttribute('aria-hidden', 'false');
+        card.classList.add('is-active-card');
+      } else {
+        card.setAttribute('aria-hidden', 'true');
+        card.classList.remove('is-active-card');
+      }
+    });
+
+    // Update bottom indicator pills
+    indicators.forEach((indicator) => {
+      const indIdx = parseInt(indicator.getAttribute('data-index'), 10);
+      if (indIdx === activeIndex) {
+        indicator.classList.add('active');
+        indicator.setAttribute('aria-selected', 'true');
+      } else {
+        indicator.classList.remove('active');
+        indicator.setAttribute('aria-selected', 'false');
+      }
+    });
+  }
+
+  function rotateNext() {
+    activeIndex = (activeIndex + 1) % totalCards;
+    updateWheelCarousel();
+  }
+
+  function rotatePrev() {
+    activeIndex = (activeIndex - 1 + totalCards) % totalCards;
+    updateWheelCarousel();
+  }
+
+  function rotateToIndex(targetIndex) {
+    if (targetIndex >= 0 && targetIndex < totalCards) {
+      activeIndex = targetIndex;
+      updateWheelCarousel();
+    }
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      rotateNext();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      rotatePrev();
+    });
+  }
+
+  indicators.forEach((indicator) => {
+    indicator.addEventListener('click', () => {
+      const targetIdx = parseInt(indicator.getAttribute('data-index'), 10);
+      rotateToIndex(targetIdx);
+    });
+  });
+
+  // Filter Buttons Behavior
   filterBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
       filterBtns.forEach((b) => b.classList.remove('active'));
       btn.classList.add('active');
-
       const filterValue = btn.getAttribute('data-filter');
 
-      projectCards.forEach((card) => {
-        const category = card.getAttribute('data-category') || '';
-        if (filterValue === 'all' || category.includes(filterValue)) {
-          card.style.display = 'flex';
-          setTimeout(() => {
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-          }, 10);
-        } else {
-          card.style.opacity = '0';
-          card.style.transform = 'translateY(20px)';
-          setTimeout(() => {
-            card.style.display = 'none';
-          }, 300);
+      if (filterValue === 'product') {
+        // Delizia Milma is at index 3
+        rotateToIndex(3);
+      } else if (filterValue === 'brand') {
+        // If current card is not a brand ad, rotate to Nesto (0)
+        if (activeIndex === 3) {
+          rotateToIndex(0);
         }
-      });
+      }
     });
   });
+
+  // Touch swipe support for mobile
+  if (carouselStage) {
+    let touchStartX = 0;
+    let touchStartY = 0;
+    carouselStage.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    carouselStage.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].screenX;
+      const touchEndY = e.changedTouches[0].screenY;
+      const diffX = touchEndX - touchStartX;
+      const diffY = touchEndY - touchStartY;
+
+      if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX < 0) {
+          rotateNext(); // Swipe left -> Next video
+        } else {
+          rotatePrev(); // Swipe right -> Prev video
+        }
+      }
+    }, { passive: true });
+  }
+
+  // Keyboard navigation when carousel section is focused/hovered
+  window.addEventListener('keydown', (e) => {
+    if (document.getElementById('projectModal')?.classList.contains('open')) return;
+    const projectsSec = document.getElementById('projects');
+    if (!projectsSec) return;
+    const rect = projectsSec.getBoundingClientRect();
+    const inView = rect.top < window.innerHeight && rect.bottom > 0;
+    if (inView) {
+      if (e.key === 'ArrowRight') {
+        rotateNext();
+      } else if (e.key === 'ArrowLeft') {
+        rotatePrev();
+      }
+    }
+  });
+
+  // Initialize carousel on load
+  updateWheelCarousel();
 
   /* ------------------------------------------------------------------------
      5. Project Lightbox & Interactive Video Player Simulation
@@ -369,11 +479,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Attach card click triggers
-  projectCards.forEach((card) => {
-    card.addEventListener('click', () => {
-      const pId = card.getAttribute('data-project-id');
-      openProjectModal(pId);
+  // Attach 3D wheel card click triggers:
+  // - Clicking a side/back card rotates it smoothly to the front center
+  // - Clicking the active front card (or its Watch button) opens the video modal
+  wheelCards.forEach((card, idx) => {
+    card.addEventListener('click', (e) => {
+      const relPos = parseInt(card.getAttribute('data-wheel-pos'), 10);
+      const isWatchBtn = e.target.closest('.btn-project-view') || e.target.closest('.play-badge');
+
+      if (relPos !== 0 && !isWatchBtn) {
+        // Rotate this card to front center
+        e.preventDefault();
+        e.stopPropagation();
+        rotateToIndex(idx);
+      } else {
+        // Open modal
+        const pId = card.getAttribute('data-project-id');
+        openProjectModal(pId);
+      }
     });
   });
 

@@ -681,9 +681,9 @@ document.addEventListener('DOMContentLoaded', () => {
         size: Math.random() * 2.2 + 1.2,
         color: color,
         flicker: Math.random() * Math.PI * 2,
-        flickerSpeed: 0.04 + Math.random() * 0.06,
-        driftX: (Math.random() - 0.5) * 0.5,
-        driftY: (Math.random() - 0.5) * 0.5
+        flickerSpeed: 0.025 + Math.random() * 0.035,
+        driftX: (Math.random() - 0.5) * 0.25,
+        driftY: (Math.random() - 0.5) * 0.25
       };
     }
 
@@ -692,10 +692,10 @@ document.addEventListener('DOMContentLoaded', () => {
       particles.push(createParticle(true));
     }
 
-    // Scroll-based Forward Warp Velocity
+    // Scroll-based Forward Warp Velocity (Soft & Graceful)
     let lastScroll = window.pageYOffset;
     let scrollSpeedBoost = 0;
-    const baseSpeed = 2.2; // Ambient forward astronaut floating speed
+    const baseSpeed = 1.15; // Calm, elegant forward floating speed
     let currentSpeed = baseSpeed;
 
     window.addEventListener('scroll', () => {
@@ -704,11 +704,11 @@ document.addEventListener('DOMContentLoaded', () => {
       lastScroll = currentScroll;
 
       if (delta > 0) {
-        // Scrolling down -> Surge forward into space!
-        scrollSpeedBoost += Math.min(delta * 1.8, 55);
+        // Scrolling down -> Smooth, graceful forward acceleration
+        scrollSpeedBoost += Math.min(delta * 0.75, 20);
       } else if (delta < 0) {
-        // Scrolling up -> gentle reverse / deceleration
-        scrollSpeedBoost -= Math.min(Math.abs(delta) * 0.8, 25);
+        // Scrolling up -> Gentle deceleration
+        scrollSpeedBoost -= Math.min(Math.abs(delta) * 0.4, 10);
       }
     }, { passive: true });
 
@@ -755,20 +755,20 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!isVisible) return;
 
       // Smoothly decay scroll warp boost
-      scrollSpeedBoost *= 0.91;
-      if (Math.abs(scrollSpeedBoost) < 0.05) scrollSpeedBoost = 0;
+      scrollSpeedBoost *= 0.90;
+      if (Math.abs(scrollSpeedBoost) < 0.03) scrollSpeedBoost = 0;
 
       // Calculate current 3D forward speed
       const targetSpeed = baseSpeed + scrollSpeedBoost;
-      currentSpeed += (targetSpeed - currentSpeed) * 0.12;
+      currentSpeed += (targetSpeed - currentSpeed) * 0.10;
 
       // Vanishing point easing
-      cx += (targetCx - cx) * 0.06;
-      cy += (targetCy - cy) * 0.06;
+      cx += (targetCx - cx) * 0.05;
+      cy += (targetCy - cy) * 0.05;
 
       ctx.clearRect(0, 0, width, height);
 
-      const isWarping = currentSpeed > 4.5;
+      const isWarping = currentSpeed > 2.6;
 
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
@@ -802,9 +802,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const radius = Math.max(p.size * (fov / p.z) * 0.85, 0.7);
         const col = p.color;
 
-        // Warp Streak Tails when flying fast
+        // Warp Streak Tails when flying fast (Smooth & Soft)
         if (isWarping && prevZ > 0) {
-          const prevK = fov / Math.min(prevZ + currentSpeed * 1.8, maxDepth);
+          const prevK = fov / Math.min(prevZ + currentSpeed * 1.25, maxDepth);
           const prevSx = cx + p.x * prevK;
           const prevSy = cy + p.y * prevK;
 

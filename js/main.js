@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
       year: '2026 Commercial Production',
       image: 'assets/images/project-nesto.jpg',
       video: 'assets/videos/nesto-ad.mov',
-      tools: ['Seedance 2.5', 'Claude', 'Photoshop', 'CapCut'],
+      tools: ['Seedance 2.5', 'Claude', 'CapCut'],
       description: 'A cinematic, emotionally resonant commercial spot crafted for Nesto, capturing family warmth, cozy home living, and heartfelt brand presence. Designed for high engagement across Meta Ads and digital channels.',
       conceptBrief: 'The client needed an emotionally engaging family campaign for Nesto. By utilizing Claude for creative narrative development and prompt architecture, alongside Seedance 2.5 for cinematic character rendering, volumetric lighting, and realistic emotional cues, we achieved high-end commercial storytelling.',
       deliverables: ['15s Social Hook Version (9:16)', '30s Full Campaign Commercial (16:9)', 'High-Res Digital Banner Stills'],

@@ -107,8 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const filterValue = btn.getAttribute('data-filter');
 
       projectCards.forEach((card) => {
-        const category = card.getAttribute('data-category');
-        if (filterValue === 'all' || category === filterValue) {
+        const category = card.getAttribute('data-category') || '';
+        if (filterValue === 'all' || category.includes(filterValue)) {
           card.style.display = 'flex';
           setTimeout(() => {
             card.style.opacity = '1';
@@ -166,6 +166,19 @@ document.addEventListener('DOMContentLoaded', () => {
       description: 'A cozy, atmospheric winter season commercial for Al Karak tea, capturing warm desert camp gatherings, glowing vintage lantern embers, steaming authentic Karak flask, and seasonal brand storytelling.',
       conceptBrief: 'Crafted specifically for the winter season campaign. Claude guided the evocative cultural storytelling and sensory prompting, while Seedance 2.5 rendered photorealistic steam, golden lantern illumination, and traditional majlis atmosphere, finished in CapCut with cozy ambient sound design.',
       deliverables: ['Cinematic Brand Commercial', 'Winter Social Media Hook (9:16)', 'High-Res Campaign Stills'],
+      duration: '0:30'
+    },
+    milma: {
+      title: 'DELIZIA MILMA',
+      subtitle: 'Premium Chocolate Product Ad Commercial',
+      category: 'Product Commercial',
+      year: '2026 Product Campaign',
+      image: 'assets/images/project-delizia-milma.jpg',
+      video: 'assets/videos/delizia-milma.mp4',
+      tools: ['Flow', 'Claude', 'CapCut'],
+      description: 'A luxurious, mouthwatering product ad for Milma Delizia Almonds & Orange chocolate bar. Features rich fluid chocolate textures, vibrant zesty orange bursts, and crisp golden almond detailing.',
+      conceptBrief: 'Crafted as a high-end food & beverage product commercial. Claude assisted in script pacing and sensory appetite-appeal prompting, while Flow generated photorealistic fluid chocolate motion and dynamic lighting, perfected in CapCut with crisp sound design.',
+      deliverables: ['Cinematic Product Commercial (0:30)', '15s Social Media Reel Cut', 'Ultra HD Product Stills'],
       duration: '0:30'
     }
   };

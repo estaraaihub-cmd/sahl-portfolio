@@ -627,6 +627,216 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
+     12.1. 3D Space Warp Ember Particles (Hyperspace Forward Flight on Scroll)
+     ------------------------------------------------------------------------ */
+  const spaceCanvas = document.getElementById('aboutSpaceCanvas');
+  const aboutSec = document.getElementById('about');
+
+  if (spaceCanvas && aboutSec) {
+    const ctx = spaceCanvas.getContext('2d');
+    let width = 0;
+    let height = 0;
+    let cx = 0;
+    let cy = 0;
+    let targetCx = 0;
+    let targetCy = 0;
+
+    function resizeCanvas() {
+      const rect = aboutSec.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = rect.width || window.innerWidth;
+      height = rect.height || window.innerHeight;
+      spaceCanvas.width = Math.floor(width * dpr);
+      spaceCanvas.height = Math.floor(height * dpr);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+      cx = width / 2;
+      cy = height / 2;
+      targetCx = cx;
+      targetCy = cy;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const isMobile = window.innerWidth <= 768;
+    const numParticles = isMobile ? 110 : 230;
+    const maxDepth = 2000;
+    const fov = 420;
+
+    const emberColors = [
+      { r: 255, g: 94, b: 30 },   // Neon Ember Orange
+      { r: 255, g: 154, b: 20 },  // Warm Golden Amber
+      { r: 255, g: 215, b: 80 },  // Brilliant Hot Spark
+      { r: 255, g: 250, b: 230 }, // White-hot Cosmic Core
+      { r: 255, g: 45, b: 15 }    // Deep Crimson Ember
+    ];
+
+    function createParticle(randomZ = false) {
+      const color = emberColors[Math.floor(Math.random() * emberColors.length)];
+      return {
+        x: (Math.random() - 0.5) * width * 2.2,
+        y: (Math.random() - 0.5) * height * 2.2,
+        z: randomZ ? Math.random() * maxDepth : maxDepth,
+        size: Math.random() * 2.2 + 1.2,
+        color: color,
+        flicker: Math.random() * Math.PI * 2,
+        flickerSpeed: 0.04 + Math.random() * 0.06,
+        driftX: (Math.random() - 0.5) * 0.5,
+        driftY: (Math.random() - 0.5) * 0.5
+      };
+    }
+
+    const particles = [];
+    for (let i = 0; i < numParticles; i++) {
+      particles.push(createParticle(true));
+    }
+
+    // Scroll-based Forward Warp Velocity
+    let lastScroll = window.pageYOffset;
+    let scrollSpeedBoost = 0;
+    const baseSpeed = 2.2; // Ambient forward astronaut floating speed
+    let currentSpeed = baseSpeed;
+
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      const delta = currentScroll - lastScroll;
+      lastScroll = currentScroll;
+
+      if (delta > 0) {
+        // Scrolling down -> Surge forward into space!
+        scrollSpeedBoost += Math.min(delta * 1.8, 55);
+      } else if (delta < 0) {
+        // Scrolling up -> gentle reverse / deceleration
+        scrollSpeedBoost -= Math.min(Math.abs(delta) * 0.8, 25);
+      }
+    }, { passive: true });
+
+    // Subtle 3D perspective shift on mouse move (desktop)
+    if (!isMobile) {
+      aboutSec.addEventListener('mousemove', (e) => {
+        const rect = aboutSec.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+        targetCx = width * 0.5 + (mx - width * 0.5) * 0.15;
+        targetCy = height * 0.5 + (my - height * 0.5) * 0.15;
+      });
+      aboutSec.addEventListener('mouseleave', () => {
+        targetCx = width * 0.5;
+        targetCy = height * 0.5;
+      });
+    }
+
+    // IntersectionObserver to only animate when in view
+    let isVisible = false;
+    let animationFrameId = null;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          isVisible = true;
+          if (!animationFrameId) {
+            lastScroll = window.pageYOffset;
+            render();
+          }
+        } else {
+          isVisible = false;
+          if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = null;
+          }
+        }
+      });
+    }, { threshold: 0.05 });
+
+    observer.observe(aboutSec);
+
+    function render() {
+      if (!isVisible) return;
+
+      // Smoothly decay scroll warp boost
+      scrollSpeedBoost *= 0.91;
+      if (Math.abs(scrollSpeedBoost) < 0.05) scrollSpeedBoost = 0;
+
+      // Calculate current 3D forward speed
+      const targetSpeed = baseSpeed + scrollSpeedBoost;
+      currentSpeed += (targetSpeed - currentSpeed) * 0.12;
+
+      // Vanishing point easing
+      cx += (targetCx - cx) * 0.06;
+      cy += (targetCy - cy) * 0.06;
+
+      ctx.clearRect(0, 0, width, height);
+
+      const isWarping = currentSpeed > 4.5;
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        const prevZ = p.z;
+
+        p.z -= currentSpeed;
+        p.x += p.driftX;
+        p.y += p.driftY;
+        p.flicker += p.flickerSpeed;
+
+        // Reset if passed camera
+        if (p.z <= 2 || p.z > maxDepth) {
+          particles[i] = createParticle(false);
+          continue;
+        }
+
+        // 3D Perspective Projection
+        const k = fov / p.z;
+        const sx = cx + p.x * k;
+        const sy = cy + p.y * k;
+
+        if (sx < -100 || sx > width + 100 || sy < -100 || sy > height + 100) {
+          particles[i] = createParticle(false);
+          continue;
+        }
+
+        const depthRatio = 1 - p.z / maxDepth;
+        const baseAlpha = Math.min(Math.max(depthRatio * 1.6, 0), 1);
+        const flickerFactor = 0.8 + 0.2 * Math.sin(p.flicker);
+        const alpha = Math.min(baseAlpha * flickerFactor, 1);
+        const radius = Math.max(p.size * (fov / p.z) * 0.85, 0.7);
+        const col = p.color;
+
+        // Warp Streak Tails when flying fast
+        if (isWarping && prevZ > 0) {
+          const prevK = fov / Math.min(prevZ + currentSpeed * 1.8, maxDepth);
+          const prevSx = cx + p.x * prevK;
+          const prevSy = cy + p.y * prevK;
+
+          ctx.beginPath();
+          ctx.moveTo(prevSx, prevSy);
+          ctx.lineTo(sx, sy);
+          ctx.strokeStyle = `rgba(${col.r}, ${col.g}, ${col.b}, ${alpha * 0.75})`;
+          ctx.lineWidth = Math.min(radius * 1.4, 4);
+          ctx.lineCap = 'round';
+          ctx.stroke();
+        }
+
+        // Particle core
+        ctx.beginPath();
+        ctx.arc(sx, sy, radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${col.r}, ${col.g}, ${col.b}, ${alpha})`;
+        ctx.fill();
+
+        // Close-up glowing halo
+        if (radius > 2.5 && alpha > 0.4) {
+          ctx.beginPath();
+          ctx.arc(sx, sy, radius * 2.2, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${col.r}, ${col.g}, ${col.b}, ${alpha * 0.25})`;
+          ctx.fill();
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(render);
+    }
+  }
+
+  /* ------------------------------------------------------------------------
      13. Interactive Hanging Spider on Web (From 2nd Page to Last Page Descent)
      ------------------------------------------------------------------------ */
   const spiderContainer = document.getElementById('scrollSpider');

@@ -154,6 +154,19 @@ document.addEventListener('DOMContentLoaded', () => {
       conceptBrief: 'Engineered specifically for luxury digital marketing. Utilizing Chat GPT for atmospheric visual storytelling concepts and Kling 4.0 for fluid cinematic motion, liquid amber luminance, and golden reflections, completed with CapCut for sound pacing.',
       deliverables: ['Cinematic Brand Commercial (0:25)', 'Looping Luxury Social Teasers', 'Print-Ready 8K Campaign Stills'],
       duration: '0:25'
+    },
+    karak: {
+      title: 'AL KARAK',
+      subtitle: 'Winter Season Atmosphere Commercial',
+      category: 'Brand Commercial',
+      year: '2026 Winter Campaign',
+      image: 'assets/images/project-al-karak.jpg',
+      video: 'assets/videos/al-karak.mov',
+      tools: ['Seedance 2.5', 'Claude', 'CapCut'],
+      description: 'A cozy, atmospheric winter season commercial for Al Karak tea, capturing warm desert camp gatherings, glowing vintage lantern embers, steaming authentic Karak flask, and seasonal brand storytelling.',
+      conceptBrief: 'Crafted specifically for the winter season campaign. Claude guided the evocative cultural storytelling and sensory prompting, while Seedance 2.5 rendered photorealistic steam, golden lantern illumination, and traditional majlis atmosphere, finished in CapCut with cozy ambient sound design.',
+      deliverables: ['Cinematic Brand Commercial', 'Winter Social Media Hook (9:16)', 'High-Res Campaign Stills'],
+      duration: '0:30'
     }
   };
 

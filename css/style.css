@@ -1522,9 +1522,9 @@ button {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2.25rem;
-  max-width: 1080px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1240px;
   margin: 0 auto;
 }
 
@@ -1563,6 +1563,10 @@ button {
 
 .abba-featured-card .project-img {
   object-position: center 40%;
+}
+
+.karak-featured-card .project-img {
+  object-position: center 42%;
 }
 
 .project-card:hover .project-img {

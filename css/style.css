@@ -900,7 +900,7 @@ button {
 }
 
 /* --------------------------------------------------------------------------
-   About Section (Page 2: Transparent with Cosmic Depth)
+   About Section (Page 2: Pure 3D Space Warp Animation Background)
    -------------------------------------------------------------------------- */
 .about-section {
   position: relative;
@@ -909,17 +909,7 @@ button {
 }
 
 .about-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url('../assets/images/about-sparks-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0.18;
-  filter: contrast(1.15) brightness(1.05);
-  pointer-events: none;
-  z-index: 1;
+  display: none;
 }
 
 .about-section::after {
@@ -927,7 +917,7 @@ button {
   position: absolute;
   inset: 0;
   background: 
-    linear-gradient(180deg, var(--bg-primary) 0%, rgba(8, 8, 10, 0.15) 20%, rgba(8, 8, 10, 0.15) 80%, transparent 100%);
+    linear-gradient(180deg, var(--bg-primary) 0%, rgba(8, 8, 10, 0.1) 15%, transparent 30%, transparent 85%, transparent 100%);
   pointer-events: none;
   z-index: 1;
 }

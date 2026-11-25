@@ -171,22 +171,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Touch swipe support for mobile
-  if (carouselStage) {
+  // Touch swipe support for mobile (Buttery-smooth, no accidental clicks)
+  const carouselWrapper = document.getElementById('projectsCarouselWrapper') || carouselStage;
+  let isSwiping = false;
+  let swipeBlockedUntil = 0;
+
+  if (carouselWrapper) {
     let touchStartX = 0;
     let touchStartY = 0;
-    carouselStage.addEventListener('touchstart', (e) => {
+
+    carouselWrapper.addEventListener('touchstart', (e) => {
       touchStartX = e.changedTouches[0].screenX;
       touchStartY = e.changedTouches[0].screenY;
+      isSwiping = false;
     }, { passive: true });
 
-    carouselStage.addEventListener('touchend', (e) => {
+    carouselWrapper.addEventListener('touchmove', (e) => {
+      const curX = e.changedTouches[0].screenX;
+      if (Math.abs(curX - touchStartX) > 12) {
+        isSwiping = true;
+      }
+    }, { passive: true });
+
+    carouselWrapper.addEventListener('touchend', (e) => {
       const touchEndX = e.changedTouches[0].screenX;
       const touchEndY = e.changedTouches[0].screenY;
       const diffX = touchEndX - touchStartX;
       const diffY = touchEndY - touchStartY;
 
-      if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+      if (Math.abs(diffX) > 35 && Math.abs(diffX) > Math.abs(diffY)) {
+        isSwiping = true;
+        swipeBlockedUntil = Date.now() + 350;
         if (diffX < 0) {
           rotateNext(); // Swipe left -> Next video
         } else {
@@ -464,6 +479,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // - Clicking the active front card (or its Watch button) opens the video modal
   wheelCards.forEach((card, idx) => {
     card.addEventListener('click', (e) => {
+      // Prevent modal opening right after a finger swipe gesture
+      if (isSwiping || Date.now() < swipeBlockedUntil) {
+        e.preventDefault();
+        e.stopPropagation();
+        isSwiping = false;
+        return;
+      }
+
       const relPos = parseInt(card.getAttribute('data-wheel-pos'), 10);
       const isWatchBtn = e.target.closest('.btn-project-view') || e.target.closest('.play-badge');
 
@@ -906,5 +929,169 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     updateSpider();
+  }
+
+  /* ------------------------------------------------------------------------
+     14. Last Page Animated Space Canvas Engine (Cosmic Starfield & Warp Embers)
+     ------------------------------------------------------------------------ */
+  const contactCanvas = document.getElementById('contactSpaceCanvas');
+  const contactSectionEl = document.getElementById('contact');
+
+  if (contactCanvas && contactSectionEl) {
+    const ctx = contactCanvas.getContext('2d');
+    let width = 0;
+    let height = 0;
+    let centerX = 0;
+    let centerY = 0;
+    let targetCenterX = 0;
+    let targetCenterY = 0;
+
+    function resizeContactCanvas() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = contactSectionEl.offsetWidth || window.innerWidth;
+      height = contactSectionEl.offsetHeight || window.innerHeight;
+      contactCanvas.width = Math.floor(width * dpr);
+      contactCanvas.height = Math.floor(height * dpr);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+      centerX = width / 2;
+      centerY = height * 0.38;
+      targetCenterX = centerX;
+      targetCenterY = centerY;
+    }
+
+    window.addEventListener('resize', resizeContactCanvas);
+    resizeContactCanvas();
+
+    const isMobile = window.innerWidth <= 768;
+    const numStars = isMobile ? 85 : 170;
+    const maxDepth = 1500;
+    const fov = 360;
+
+    const spaceColors = [
+      { r: 255, g: 94, b: 30 },   // Neon Ember Orange
+      { r: 255, g: 165, b: 40 },  // Warm Amber Glow
+      { r: 255, g: 225, b: 100 }, // Golden Starlight
+      { r: 255, g: 255, b: 255 }, // Brilliant White Spark
+      { r: 195, g: 110, b: 255 }  // Violet Aurora Dust
+    ];
+
+    function createSpaceStar(randomZ = false) {
+      const col = spaceColors[Math.floor(Math.random() * spaceColors.length)];
+      return {
+        x: (Math.random() - 0.5) * width * 2.5,
+        y: (Math.random() - 0.5) * height * 2.5,
+        z: randomZ ? Math.random() * maxDepth : maxDepth,
+        size: Math.random() * 2.2 + 0.8,
+        color: col,
+        speed: 1.1 + Math.random() * 1.6,
+        twinkle: Math.random() * Math.PI * 2,
+        twinkleSpeed: 0.03 + Math.random() * 0.04
+      };
+    }
+
+    const stars = [];
+    for (let i = 0; i < numStars; i++) {
+      stars.push(createSpaceStar(true));
+    }
+
+    // Mouse perspective tilt (desktop)
+    if (!isMobile) {
+      contactSectionEl.addEventListener('mousemove', (e) => {
+        const rect = contactSectionEl.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+        targetCenterX = width * 0.5 + (mx - width * 0.5) * 0.14;
+        targetCenterY = height * 0.38 + (my - height * 0.38) * 0.14;
+      });
+
+      contactSectionEl.addEventListener('mouseleave', () => {
+        targetCenterX = width * 0.5;
+        targetCenterY = height * 0.38;
+      });
+    }
+
+    let isSectionVisible = true;
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        isSectionVisible = entries[0].isIntersecting;
+      }, { rootMargin: '250px' });
+      observer.observe(contactSectionEl);
+    }
+
+    let angle = 0;
+    function renderContactSpace() {
+      if (isSectionVisible) {
+        ctx.clearRect(0, 0, width, height);
+
+        // Continuous subtle cosmic drift
+        angle += 0.015;
+        const swayX = isMobile ? Math.sin(angle * 0.6) * 10 : 0;
+        const swayY = isMobile ? Math.cos(angle * 0.6) * 6 : 0;
+
+        centerX += (targetCenterX + swayX - centerX) * 0.05;
+        centerY += (targetCenterY + swayY - centerY) * 0.05;
+
+        for (let i = 0; i < stars.length; i++) {
+          const s = stars[i];
+          const prevZ = s.z;
+          s.z -= s.speed;
+          s.twinkle += s.twinkleSpeed;
+
+          if (s.z <= 4 || s.z > maxDepth) {
+            stars[i] = createSpaceStar(false);
+            continue;
+          }
+
+          const k = fov / s.z;
+          const sx = centerX + s.x * k;
+          const sy = centerY + s.y * k;
+
+          if (sx < -60 || sx > width + 60 || sy < -60 || sy > height + 60) {
+            stars[i] = createSpaceStar(false);
+            continue;
+          }
+
+          const depthRatio = 1 - (s.z / maxDepth);
+          const twinkleAlpha = 0.8 + 0.2 * Math.sin(s.twinkle);
+          const alpha = Math.min(Math.max(depthRatio * 1.6, 0.1), 1) * twinkleAlpha;
+          const radius = Math.max(s.size * (fov / s.z) * 0.72, 0.65);
+          const c = s.color;
+
+          // Light streak tail for deep warp speed sensation
+          if (prevZ > 0) {
+            const prevK = fov / Math.min(prevZ + s.speed * 1.8, maxDepth);
+            const prevSx = centerX + s.x * prevK;
+            const prevSy = centerY + s.y * prevK;
+
+            ctx.beginPath();
+            ctx.moveTo(prevSx, prevSy);
+            ctx.lineTo(sx, sy);
+            ctx.strokeStyle = `rgba(${c.r}, ${c.g}, ${c.b}, ${alpha * 0.55})`;
+            ctx.lineWidth = Math.min(radius * 1.1, 2.5);
+            ctx.lineCap = 'round';
+            ctx.stroke();
+          }
+
+          // Star core
+          ctx.beginPath();
+          ctx.arc(sx, sy, radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${c.r}, ${c.g}, ${c.b}, ${alpha})`;
+          ctx.fill();
+
+          // Ambient starlight halo for closer stars
+          if (radius > 1.8 && alpha > 0.35) {
+            ctx.beginPath();
+            ctx.arc(sx, sy, radius * 2.2, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${c.r}, ${c.g}, ${c.b}, ${alpha * 0.18})`;
+            ctx.fill();
+          }
+        }
+      }
+
+      requestAnimationFrame(renderContactSpace);
+    }
+
+    renderContactSpace();
   }
 });

@@ -490,7 +490,7 @@ button {
 .folio-hero-container {
   position: relative;
   width: 100%;
-  padding: 1.25rem;
+  padding: 0;
   background-color: var(--bg-primary);
   min-height: 100vh;
   display: flex;
@@ -501,13 +501,13 @@ button {
 .folio-canvas {
   position: relative;
   width: 100%;
-  max-width: 1440px;
-  min-height: calc(100vh - 2.5rem);
-  border-radius: 28px;
+  max-width: 100%;
+  min-height: 100vh;
+  border-radius: 0;
   overflow: hidden;
   background: #0d0605;
-  border: 1px solid rgba(255, 94, 30, 0.25);
-  box-shadow: 0 30px 80px -10px rgba(0, 0, 0, 0.9), 0 0 45px rgba(255, 94, 30, 0.15);
+  border: none !important;
+  box-shadow: none !important;
   display: flex;
   flex-direction: column;
 }
@@ -588,6 +588,8 @@ button {
   position: relative;
   z-index: 5;
   width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -3052,10 +3054,8 @@ button {
   .folio-canvas {
     border-radius: 0;
     min-height: 100svh;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    box-shadow: none;
+    border: none !important;
+    box-shadow: none !important;
   }
 
   .folio-top-bar {

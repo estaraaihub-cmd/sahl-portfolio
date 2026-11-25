@@ -1665,7 +1665,7 @@ button {
   max-width: 86vw;
   top: 50%;
   left: 50%;
-  margin-top: -195px;
+  margin-top: -165px;
   margin-left: -162px;
   border-radius: var(--radius-xl);
   display: flex;
@@ -1772,7 +1772,7 @@ button {
 }
 
 .nesto-featured-card .project-img {
-  object-position: center 38%;
+  object-position: center 36%;
 }
 
 .abba-featured-card .project-img {
@@ -1780,11 +1780,11 @@ button {
 }
 
 .karak-featured-card .project-img {
-  object-position: center 42%;
+  object-position: center 48%;
 }
 
 .milma-featured-card .project-img {
-  object-position: center 36%;
+  object-position: center 30%;
 }
 
 .project-card:hover .project-img {
@@ -1792,44 +1792,11 @@ button {
 }
 
 .project-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity var(--transition-normal);
-}
-
-.project-card:hover .project-overlay {
-  opacity: 1;
+  display: none !important;
 }
 
 .play-badge {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 0.65rem 1.25rem;
-  border-radius: var(--radius-pill);
-  color: #ffffff;
-  font-weight: 600;
-  font-size: 0.85rem;
-  transform: translateY(10px);
-  transition: transform var(--transition-normal);
-}
-
-.project-card:hover .play-badge {
-  transform: translateY(0);
-}
-
-.play-badge i {
-  width: 16px;
-  height: 16px;
-  fill: #ffffff;
+  display: none !important;
 }
 
 .project-tag-pill {
@@ -1847,10 +1814,9 @@ button {
 }
 
 .project-info {
-  padding: 1.25rem 1.4rem;
+  padding: 1.15rem 1.25rem 1.2rem;
   display: flex;
   flex-direction: column;
-  flex: 1;
 }
 
 .project-header {
@@ -1877,14 +1843,14 @@ button {
   font-size: 0.84rem;
   color: var(--text-secondary);
   line-height: 1.48;
-  margin-bottom: 0.95rem;
+  margin-bottom: 0.75rem;
 }
 
 .project-tools-row {
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
-  margin-bottom: 1.15rem;
+  margin-bottom: 0;
 }
 
 .tool-tag {
@@ -1898,14 +1864,7 @@ button {
 }
 
 .btn-project-view {
-  margin-top: auto;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--accent-amber);
-  transition: gap var(--transition-fast);
+  display: none !important;
 }
 
 .btn-project-view i {
